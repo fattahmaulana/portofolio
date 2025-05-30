@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+
+
+/* Scoped Styles (Hanya berlaku untuk CardSection) */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+}
+
+.hero h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+  font-size: 5vw;
+  font-weight: lighter;
+  line-height: 100%;
+  font-family: "Helvetica Neue";
+}
+
+.hero em {
+  font-family: 'Instrument Serif', serif;
+}
+
+.cards {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 450px;
+  perspective: 1000px;
+}
+
+.card p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.cardWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  animation: floating 3s infinite ease-in-out;
+}
+
+#card-1 .cardWrapper {
+  animation-delay: 0;
+}
+
+#card-2 .cardWrapper {
+  animation-delay: 0.2s;
+}
+
+#card-3 .cardWrapper {
+  animation-delay: 0.4s;
+}
+
+#card-4 .cardWrapper {
+  animation-delay: 0.6s;
+}
+
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.flipCardFront,
+.flipCardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0.8em;
+  overflow: hidden;
+}
+
+.flipCardBack {
+  padding: 1em;
+  background-color: #000000;
+  transform: rotateY(180deg);
+}
+
+
+.marqueeInner {
+  display: flex;
+  min-width: 200% ;
+  animation: marquee-scroll 10s linear infinite;
+}
+
+.marqueeContent {
+  display: flex;
+  gap: 2rem; /* Jarak antara teks dan gambar */
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0; /* Biar tidak mengecil */
+}
+
+.marqueeContent img {
+  height: 50px; /* Ukuran gambar diperbaiki */
+  width: 50px;
+}
+
+.marqueeContent span {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left:10px;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-10%);
+  }
+}
+
+
+
+
+@keyframes floating {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -60%);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.footer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer h1 {
+  color: #fff;
+  font-size: 5vw;
+  font-weight: lighter;
+  line-height: 100%;
+  font-family: "Helvetica Neue";
+}
