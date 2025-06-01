@@ -1,39 +1,43 @@
-"use client"; // Wajib untuk menggunakan useEffect
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
-import styles from './CardSection.module.css'; // Impor CSS Module
-import './global.css'; // Impor CSS global
+"use client";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+import Image from "next/image";
+import styles from "./CardSection.module.css";
+import "./global.css";
+
 const marqueeItems = [
   { text: " Experience & Projects ", img: "/images/image1.png" },
   { text: " Creative Works ", img: "/images/image1.png" },
-  { text: " Experience & Projects ", img: "/images/image1.png" }
+  { text: " Experience & Projects ", img: "/images/image1.png" },
 ];
+
 const CardSection: React.FC = () => {
   const cardsRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    // Inisialisasi GSAP dan ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // Smooth scroll dengan Lenis
     const lenis = new Lenis();
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time: number) => {
-      lenis.raf(time * 1000);
-    });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
     const cards = cardsRef.current;
     const totalScrollHeight = window.innerHeight * 3;
-    const positions = [14, 38, 62, 86];
-    const rotations = [-15, -7.5, 7.5, 15];
+
+    const positions = window.innerWidth < 768
+      ? [10, 30, 50, 70]
+      : [14, 38, 62, 86];
+    const rotations = window.innerWidth < 768
+      ? [-10, -5, 5, 10]
+      : [-15, -7.5, 7.5, 15];
 
     // Pin cards section
     ScrollTrigger.create({
       trigger: `.${styles.cards}`,
-      start: 'top top',
+      start: "top top",
       end: () => `+=${totalScrollHeight}`,
       pin: true,
       pinSpacing: true,
@@ -43,11 +47,11 @@ const CardSection: React.FC = () => {
     cards.forEach((card, index) => {
       gsap.to(card, {
         left: `${positions[index]}%`,
-        rotation: `${rotations[index]}`,
-        ease: 'none',
+        rotation: `${rotations[index]}deg`,
+        ease: "none",
         scrollTrigger: {
           trigger: `.${styles.cards}`,
-          start: 'top top',
+          start: "top top",
           end: () => `+=${window.innerHeight}`,
           scrub: 0.5,
           id: `spread-${index}`,
@@ -66,7 +70,7 @@ const CardSection: React.FC = () => {
 
       ScrollTrigger.create({
         trigger: `.${styles.cards}`,
-        start: 'top top',
+        start: "top top",
         end: () => `+=${totalScrollHeight}`,
         scrub: 1,
         id: `rotate-flip-${index}`,
@@ -88,17 +92,15 @@ const CardSection: React.FC = () => {
       });
     });
 
-    // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      lenis.destroy();
     };
   }, []);
 
   return (
     <div>
-      {/* Hero Section */}
-      
-
       {/* Cards Section */}
       <section className={styles.cards}>
         {[1, 2, 3, 4].map((id) => (
@@ -113,22 +115,28 @@ const CardSection: React.FC = () => {
             <div className={styles.cardWrapper}>
               <div className={styles.flipCardInner}>
                 <div className={styles.flipCardFront}>
-                  <img
+                  <Image
                     src={`/images/img${id === 1 ? '10' : id === 2 ? '10' : id === 3 ? '10' : '10'}.jpg`}
                     alt="Card"
+                    width={400}
+                    height={300}
                   />
                 </div>
                 <div className={styles.flipCardBack}>
                   {id === 1 || id === 2 ? (
-                        <img
-                          src={`/images/img${id === 1 ? '15' : '16'}.gif`}
-                          alt="logo"
-                          className={styles.cardLogo}
-                        />
+                    <Image
+                      src={`/images/img${id === 1 ? '15' : '16'}.gif`}
+                      alt="logo"
+                      width={100}
+                      height={100}
+                      className={styles.cardLogo}
+                    />
                   ) : (
-                    <img
+                    <Image
                       src={`/images/img${id === 3 ? '17' : '18'}.gif`}
                       alt=""
+                      width={200}
+                      height={200}
                       className={styles.fullImg}
                     />
                   )}
@@ -141,25 +149,25 @@ const CardSection: React.FC = () => {
 
       {/* Footer Section */}
       <section className={styles.footer}>
-      
-
-<div className={styles.marquee}>
-  <div className={styles.marqueeInner}>
-    {/* Duplikasi otomatis minimal 2x biar nyambung */}
-    {[...Array(3)].map((_, i) => (
-      <div className={styles.marqueeContent} key={i}>
-        {marqueeItems.map((item, index) => (
-          <React.Fragment key={`${i}-${index}`}>
-            <span>{item.text}</span>
-            <img src={item.img} alt="Gambar" style={{ width: "50px", height: "auto" }} />
-          </React.Fragment>
-        ))}
-      </div>
-    ))}
-  </div>
-</div>;
-
-
+        <div className={styles.marquee}>
+          <div className={styles.marqueeInner}>
+            {[...Array(3)].map((_, i) => (
+              <div className={styles.marqueeContent} key={i}>
+                {marqueeItems.map((item, index) => (
+                  <React.Fragment key={`${i}-${index}`}>
+                    <span>{item.text}</span>
+                    <Image
+                      src={item.img}
+                      alt="Marquee Image"
+                      width={50}
+                      height={50}
+                    />
+                  </React.Fragment>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );
