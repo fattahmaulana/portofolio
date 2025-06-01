@@ -9,14 +9,12 @@ import { companies } from "@/data";
 import { socialMedia } from "@/data";
 import Link from "next/link";
 import { links } from "@/config";
-import { techStack } from "@/data";
 import animationData from "@/data/confetti.json";
 import { cn } from "@/lib/utils";
 
 import { BackgroundGradientAnimation } from "./background-gradient-animation";
 import { MagicButton } from "./magic-button";
 
-import { GridGlobe } from "../grid-globe";
 
 export const BentoGrid = ({
   className,
