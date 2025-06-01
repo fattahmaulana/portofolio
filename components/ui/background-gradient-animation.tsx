@@ -41,6 +41,9 @@ export const BackgroundGradientAnimation = ({
   const [curY, setCurY] = useState(0);
   const [tgX, setTgX] = useState(0);
   const [tgY, setTgY] = useState(0);
+  if (typeof window !== 'undefined') {
+  // Kode yang menggunakan `document` atau API browser lainnya
+
   useEffect(() => {
     document.body.style.setProperty(
       "--gradient-background-start",
@@ -70,7 +73,7 @@ export const BackgroundGradientAnimation = ({
     size,
     thirdColor,
   ]);
-
+  }
   useEffect(() => {
     const move = () => {
       if (!interactiveRef.current) {
