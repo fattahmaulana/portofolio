@@ -42,29 +42,7 @@ export const BackgroundGradientAnimation = ({
   const [tgY, setTgY] = useState(0);
 
   // Set CSS variables for gradients
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      document.body.style.setProperty(
-        "--gradient-background-start",
-        gradientBackgroundStart
-      );
-      document.body.style.setProperty(
-        "--gradient-background-end",
-        gradientBackgroundEnd
-      );
-    }
-  }, [
-    blendingValue,
-    fifthColor,
-    firstColor,
-    fourthColor,
-    gradientBackgroundEnd,
-    gradientBackgroundStart,
-    pointerColor,
-    secondColor,
-    size,
-    thirdColor,
-  ]);
+ 
 
   // Animation logic
   useEffect(() => {
